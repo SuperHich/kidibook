@@ -1,10 +1,11 @@
 import '../models/story.dart';
+import '../stories/castle_twilight_mystery.dart';
 import '../stories/don_magic.dart';
-import '../stories/sky_magic.dart';
+import '../stories/long_forest_adventure.dart';
+import '../stories/pacman_world.dart';
 import '../stories/pets_friend.dart';
 import '../stories/secret_teleporter.dart';
-import '../stories/long_forest_adventure.dart';
-import '../stories/castle_twilight_mystery.dart';
+import '../stories/sky_magic.dart';
 
 // Local stories with SVG images stored under assets/svgs/
 final List<Story> stories = [
@@ -50,6 +51,13 @@ final List<Story> stories = [
     imageAsset: const SkyMagic().imageAsset,
     bodyTemplate: '',
     content: const SkyMagic(),
+  ),
+  Story(
+    id: const PacmanWorld().id,
+    title: const PacmanWorld().title,
+    imageAsset: const PacmanWorld().imageAsset,
+    bodyTemplate: '',
+    content: const PacmanWorld(),
   ),
 ];
 

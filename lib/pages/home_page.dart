@@ -168,7 +168,7 @@ class _StoryCard extends StatelessWidget {
               padding: const EdgeInsets.all(12),
               child: Text(
                 story.title,
-                maxLines: 1,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
