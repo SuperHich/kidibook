@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import '../controllers/app_state.dart';
 import '../data/stories_data.dart';
 import '../models/story.dart';
@@ -127,19 +127,6 @@ class _StoryCard extends StatelessWidget {
     final isFav = app.isFavorite(story.id);
     final color = Theme.of(context).colorScheme;
 
-    final Widget imageAsset;
-    if(story.imageAsset.endsWith("png")) {
-      imageAsset = Image.asset(
-        story.imageAsset,
-        fit: BoxFit.cover,
-      );
-    } else {
-      imageAsset = SvgPicture.asset(
-        story.imageAsset,
-        fit: BoxFit.cover,
-      );
-    };
-
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
@@ -159,7 +146,10 @@ class _StoryCard extends StatelessWidget {
                   Positioned.fill(
                     child: Hero(
                       tag: 'img_${story.id}',
-                      child: imageAsset,
+                      child: Image.asset(
+                        story.imageAsset,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   Positioned(
@@ -199,19 +189,6 @@ class _StoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final isFav = app.isFavorite(story.id);
 
-    final Widget imageAsset;
-    if(story.imageAsset.endsWith("png")) {
-      imageAsset = Image.asset(
-        story.imageAsset,
-        fit: BoxFit.cover,
-      );
-    } else {
-      imageAsset = SvgPicture.asset(
-        story.imageAsset,
-        fit: BoxFit.cover,
-      );
-    };
-
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       leading: Hero(
@@ -220,7 +197,10 @@ class _StoryTile extends StatelessWidget {
           aspectRatio: 1,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: imageAsset,
+            child: Image.asset(
+              story.imageAsset,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),

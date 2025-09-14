@@ -5,43 +5,43 @@ class LongForestAdventure implements StoryContent {
   final String id = 'long_forest_adventure';
 
   @override
-  final String title = 'The Long Forest Adventure';
+  final String title = 'L’aventure de la longue forêt';
 
   @override
-  final String imageAsset = 'assets/svgs/forest.svg';
+  final String imageAsset = 'assets/images/long_forest.jpg';
 
   const LongForestAdventure();
 
   @override
   String renderBody(String kidName) {
     return '''
-It was the kind of morning that smelled like pancakes and pine trees. ${kidName} tied their shoelaces tight, tucked a tiny compass in a pocket, and waved goodbye to the kitchen window that winked with sun.
+C’était le genre de matin qui sentait les pancakes et les pins. ${kidName} serra ses lacets, glissa une petite boussole dans sa poche et fit un signe d’adieu à la fenêtre de la cuisine, qui clignait avec le soleil.
 
-Beyond the garden gate, the forest began like a soft green curtain. Leaves whispered a secret song, and somewhere far away, a woodpecker kept a steady drumbeat—tap, tap, tap—as if the trees themselves had a heartbeat.
+Au-delà de la barrière du jardin, la forêt s’ouvrait comme un doux rideau vert. Les feuilles murmuraient une chanson secrète et, au loin, un pic gardait un rythme régulier, « tap, tap, tap », comme si les arbres eux-mêmes avaient un cœur qui bat.
 
-Near the mossy stones, ${kidName} discovered tiny footprints—too small for a rabbit, too tidy for a squirrel. Curious, ${kidName} followed the trail past a log that looked like a dragon and a stream that laughed over pebbles. The footprints stopped at a patch of silver mushrooms.
+Près des pierres moussues, ${kidName} découvrit de minuscules empreintes, trop petites pour un lapin, trop soignées pour un écureuil. Curieux, ${kidName} suivit la piste, passant un tronc qui ressemblait à un dragon et un ruisseau qui riait sur les galets. Les empreintes s’arrêtèrent devant un groupe de champignons argentés.
 
-“Hello?” ${kidName} asked politely. A flicker of blue peeked from behind a fern. It was a fox! But not just any fox—this one wore a scarf knit from twilight. The fox bowed. “I’m Fenn. I lost my bell of bravest chimes. Without it, I forget to be brave.”
+« Bonjour ? » demanda poliment ${kidName}. Une lueur bleue apparut derrière une fougère. C’était un renard ! Mais pas n’importe quel renard : celui-ci portait une écharpe tricotée à partir du crépuscule. Le renard s’inclina. « Je suis Fenn. J’ai perdu ma clochette des carillons les plus braves. Sans elle, j’oublie d’être brave. »
 
-${kidName} offered a steady smile. “I can help.” And the forest seemed to nod in agreement.
+${kidName} lui offrit un sourire rassurant. « Je peux t’aider. » Et la forêt sembla acquiescer.
 
-Together, they searched under archways of branches and over bridges of roots. A shy owl lent them a feather to tickle the wind and listen to its stories. “Your bell rolled toward the Starlight Pond,” the wind sighed. “But the pond only echoes truths.”
+Ensemble, ils cherchèrent sous des arches de branches et au-dessus de ponts de racines. Un hibou timide leur prêta une plume pour chatouiller le vent et écouter ses histoires. « Ta clochette a roulé vers l’étang des étoiles, » soupira le vent. « Mais l’étang ne fait écho qu’aux vérités. »
 
-At the pond, the water was so still it held the sky like a bowl. ${kidName} cupped their hands and asked, “Where is Fenn’s bell?” The pond shimmered and answered with a question of its own: “What do you do when you feel small?”
+Au bord de l’étang, l’eau était si calme qu’elle retenait le ciel comme un bol. ${kidName} mit ses mains en coupe et demanda : « Où est la clochette de Fenn ? » L’étang scintilla et répondit par une question : « Que fais-tu quand tu te sens petit ? »
 
-${kidName} thought of times when the world felt big: the first day at the playground, the first swim in the pool, the first time speaking in front of the class. “I take a breath. I remember a kind face. I try, even if my knees knock.”
+${kidName} pensa aux moments où le monde paraissait grand : le premier jour au terrain de jeu, la première fois dans une piscine, la première fois qu’il fallait parler devant la classe. « Je prends une grande respiration. Je pense à un visage gentil. J’essaie, même si mes genoux tremblent. »
 
-The pond giggled a silver ripple. “True,” it sang, “and truth calls to truth.” From the reeds, a soft chime answered like a star blinking at dusk. There, tangled in cattails, hung Fenn’s bell.
+L’étang gloussa, une ondulation argentée. « C’est vrai, » chanta-t-il, « et la vérité appelle la vérité. » Dans les roseaux, un doux tintement répondit, comme une étoile qui clignote au crépuscule. Là, enchevêtrée dans les quenouilles, pendait la clochette de Fenn.
 
-Fenn tried to reach, but the reeds tickled and the fox squeaked with worry. ${kidName} took a brave step onto the squishy bank. “Together,” said ${kidName}. They counted, “One, two, three!” and gingerly freed the bell.
+Fenn essaya de l’atteindre, mais les roseaux le chatouillèrent et le renard poussa un petit cri d’inquiétude. ${kidName} fit un pas courageux sur la rive boueuse. « Ensemble », dit ${kidName}. Ils comptèrent, « Un, deux, trois ! » et dégagèrent délicatement la clochette.
 
-It rang—a warm, honey-sweet sound that chimed straight into the heart. Fenn stood taller. “You helped me hear courage,” the fox said. “Now let me help you keep it.” Fenn tied a thin silver thread from the bell around ${kidName}'s wrist. It didn’t weigh a thing, but it felt like holding hands with a promise.
+Elle sonna, d’un son chaud et doux comme du miel, qui résonna droit dans le cœur. Fenn se tint plus droit. « Tu m’as aidé à entendre le courage, » dit le renard. « Maintenant, laisse-moi t’aider à le garder. » Fenn attacha un fin fil d’argent de la clochette autour du poignet de ${kidName}. Cela ne pesait rien, mais c’était comme tenir une promesse.
 
-They walked back through green light and birdsong, and the forest, delighted, tossed little sparkles of sunlight at their feet. At the garden gate, Fenn bowed again, scarf fluttering like a bedtime story’s last page.
+Ils retournèrent à travers la lumière verte et les chants d’oiseaux, et la forêt, enchantée, lança de petites étincelles de soleil à leurs pieds. À la barrière du jardin, Fenn s’inclina de nouveau, l’écharpe flottant comme la dernière page d’une histoire du soir.
 
-“Remember,” said Fenn, “courage isn’t loud. It’s the soft bell that rings when you try.”
+« Souviens-toi, » dit Fenn, « le courage n’est pas bruyant. C’est la douce clochette qui sonne quand tu essaies. »
 
-${kidName} smiled, tucking the adventure beside the pancakes and pine trees. And if you listened closely that evening, just before sleep, you could hear the bell of bravest chimes ring once—bright as a wish coming true.
+${kidName} sourit, rangeant l’aventure aux côtés des pancakes et des pins. Et si vous écoutiez attentivement ce soir-là, juste avant de vous endormir, vous pouviez entendre la clochette des carillons les plus braves sonner une fois, claire comme un souhait qui se réalise.
 ''';
   }
 }

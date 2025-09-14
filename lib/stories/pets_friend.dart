@@ -5,10 +5,10 @@ class PetsFriend implements StoryContent {
   final String id = 'pets_friend';
 
   @override
-  final String title = 'The pets friend';
+  final String title = 'L’ami des animaux';
 
   @override
-  final String imageAsset = 'assets/images/pets_friend.png';
+  final String imageAsset = 'assets/images/pets_friend.jpg';
 
   const PetsFriend();
 

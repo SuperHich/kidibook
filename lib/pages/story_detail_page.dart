@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import '../controllers/app_state.dart';
 import '../models/story.dart';
 
@@ -12,18 +12,6 @@ class StoryDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final isFav = app.isFavorite(story.id);
     final color = Theme.of(context).colorScheme;
-    final Widget imageAsset;
-    if(story.imageAsset.endsWith("png")) {
-      imageAsset = Image.asset(
-        story.imageAsset,
-        fit: BoxFit.cover,
-      );
-    } else {
-      imageAsset = SvgPicture.asset(
-          story.imageAsset,
-          fit: BoxFit.cover,
-        );
-    };
 
     return Scaffold(
       appBar: AppBar(
@@ -45,7 +33,10 @@ class StoryDetailPage extends StatelessWidget {
               tag: 'img_${story.id}',
               child: AspectRatio(
                 aspectRatio: 16 / 9,
-                child: imageAsset,
+                child: Image.asset(
+                  story.imageAsset,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(height: 16),
