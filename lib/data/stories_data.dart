@@ -6,6 +6,10 @@ import '../stories/pacman_world.dart';
 import '../stories/pets_friend.dart';
 import '../stories/secret_teleporter.dart';
 import '../stories/sky_magic.dart';
+import '../stories/adventure_in_borderland.dart';
+import '../stories/adventure_in_desert.dart';
+import '../stories/adventure_in_mountain.dart';
+import '../stories/visit_new_york.dart';
 
 // Local stories with SVG images stored under assets/svgs/
 final List<Story> stories = [
@@ -58,6 +62,34 @@ final List<Story> stories = [
     imageAsset: const PacmanWorld().imageAsset,
     bodyTemplate: '',
     content: const PacmanWorld(),
+  ),
+  Story(
+    id: const AdventureInBorderland().id,
+    title: const AdventureInBorderland().title,
+    imageAsset: const AdventureInBorderland().imageAsset,
+    bodyTemplate: '',
+    content: const AdventureInBorderland(),
+  ),
+  Story(
+    id: const AdventureInDesert().id,
+    title: const AdventureInDesert().title,
+    imageAsset: const AdventureInDesert().imageAsset,
+    bodyTemplate: '',
+    content: const AdventureInDesert(),
+  ),
+  Story(
+    id: const AdventureInMountain().id,
+    title: const AdventureInMountain().title,
+    imageAsset: const AdventureInMountain().imageAsset,
+    bodyTemplate: '',
+    content: const AdventureInMountain(),
+  ),
+  Story(
+    id: const VisitNewYork().id,
+    title: const VisitNewYork().title,
+    imageAsset: const VisitNewYork().imageAsset,
+    bodyTemplate: '',
+    content: const VisitNewYork(),
   ),
 ];
 

@@ -15,7 +15,7 @@ class SkyMagic implements StoryContent {
   @override
   String renderBody(String kidName) {
     return '''
-Il était une fois un petit garçon de six ans qui s’appelait ${kidName}. ${kidName} avait des bottes de pluie rouges toutes neuves et il n’attendait qu’une chose : sauter dans les flaques d’eau ! Mais aujourd’hui, le soleil brillait de mille feux et il n’y avait pas un seul nuage dans le ciel.
+Il était une fois un petit garçon qui s’appelait ${kidName}. ${kidName} avait des bottes de pluie rouges toutes neuves et il n’attendait qu’une chose : sauter dans les flaques d’eau ! Mais aujourd’hui, le soleil brillait de mille feux et il n’y avait pas un seul nuage dans le ciel.
 
 ${kidName} sortit dans son jardin en traînant un peu les pieds. C’est alors qu’il le vit.
 

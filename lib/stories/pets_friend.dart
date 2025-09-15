@@ -15,7 +15,7 @@ class PetsFriend implements StoryContent {
   @override
   String renderBody(String kidName) {
     return '''
-C’était un après-midi où le soleil filtrait à travers les feuilles du grand chêne, éclairant la petite cour de sa maison. ${kidName}, huit ans, était assis, les genoux remontés, et discutait avec un moineau.
+C’était un après-midi où le soleil filtrait à travers les feuilles du grand chêne, éclairant la petite cour de sa maison. ${kidName}, était assis, les genoux remontés, et discutait avec un moineau.
 
 « Dis-moi, Titi, qu’est-ce que tu penses du nouveau voisin ? » demanda ${kidName}.
 

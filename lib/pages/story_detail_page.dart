@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../controllers/app_state.dart';
 import '../models/story.dart';
@@ -21,6 +22,13 @@ class StoryDetailPage extends StatelessWidget {
             icon: Icon(isFav ? Icons.favorite : Icons.favorite_border),
             color: isFav ? Colors.red : Colors.blue,
             onPressed: () => app.toggleFavorite(story.id),
+          ),
+          IconButton(
+            icon: const Icon(Icons.copy),
+            onPressed: () {
+              Clipboard.setData(ClipboardData(text: story.bodyWithName(app.kidName)));
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Copied to clipboard')));
+            },
           ),
         ],
       ),

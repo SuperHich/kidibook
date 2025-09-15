@@ -103,7 +103,15 @@ class _NameFieldState extends State<_NameField> {
         ),
         const SizedBox(width: 8),
         FilledButton(
-          onPressed: () => widget.app.setKidName(_controller.text),
+          onPressed: () {
+            widget.app.setKidName(_controller.text);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Name updated to "${_controller.text}" successfully!'),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          },
           child: const Text('Save'),
         ),
       ],
