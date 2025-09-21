@@ -61,7 +61,7 @@ class FontSizes {
 
 ThemeData get lightTheme => ThemeData(
   useMaterial3: true,
-  colorScheme: ColorScheme.light(
+  colorScheme: const ColorScheme.light(
     primary: LightModeColors.lightPrimary,
     onPrimary: LightModeColors.lightOnPrimary,
     primaryContainer: LightModeColors.lightPrimaryContainer,
@@ -80,7 +80,7 @@ ThemeData get lightTheme => ThemeData(
     onSurface: LightModeColors.lightOnSurface,
   ),
   brightness: Brightness.light,
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     backgroundColor: LightModeColors.lightAppBarBackground,
     foregroundColor: LightModeColors.lightOnPrimaryContainer,
     elevation: 0,
@@ -151,7 +151,7 @@ ThemeData get lightTheme => ThemeData(
 
 ThemeData get darkTheme => ThemeData(
   useMaterial3: true,
-  colorScheme: ColorScheme.dark(
+  colorScheme: const ColorScheme.dark(
     primary: DarkModeColors.darkPrimary,
     onPrimary: DarkModeColors.darkOnPrimary,
     primaryContainer: DarkModeColors.darkPrimaryContainer,
@@ -170,7 +170,7 @@ ThemeData get darkTheme => ThemeData(
     onSurface: DarkModeColors.darkOnSurface,
   ),
   brightness: Brightness.dark,
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     backgroundColor: DarkModeColors.darkAppBarBackground,
     foregroundColor: DarkModeColors.darkOnPrimaryContainer,
     elevation: 0,

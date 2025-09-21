@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../controllers/app_state.dart';
@@ -182,9 +183,11 @@ class _StoryCard extends StatelessWidget {
                   Positioned.fill(
                     child: Hero(
                       tag: 'img_${story.id}',
-                      child: Image.network(
-                        story.image,
+                      child: CachedNetworkImage(
+                        imageUrl: story.image,
                         fit: BoxFit.cover,
+                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
                       ),
                     ),
                   ),
@@ -233,9 +236,11 @@ class _StoryTile extends StatelessWidget {
           aspectRatio: 1,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              story.image,
+            child: CachedNetworkImage(
+              imageUrl: story.image,
               fit: BoxFit.cover,
+              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
         ),
