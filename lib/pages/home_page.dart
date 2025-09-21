@@ -16,16 +16,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _tabIndex = 0; // 0: All, 1: Favorites
+  late Future<List<Story>> _storiesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _storiesFuture = loadStories();
+  }
+
+  Future<void> _refresh() async {
+    setState(() {
+      _storiesFuture = loadStories();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme;
-
-    final List<Story> all = repository.stories;
-    final Set<String> favIds = widget.app.favorites;
-    final List<Story> favs = all.where((s) => favIds.contains(s.id)).toList();
-
-    final List<Story> list = _tabIndex == 0 ? all : favs;
 
     return Scaffold(
       appBar: AppBar(
@@ -52,22 +59,51 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 250),
-        child: list.isEmpty
-            ? _EmptyState(
-                key: ValueKey('empty_$_tabIndex'),
-                title: _tabIndex == 0 ? 'No stories yet' : 'No favorites yet',
-                subtitle: _tabIndex == 0
-                    ? 'Stories will appear here.'
-                    : 'Tap the heart on a story to add it to favorites.',
-              )
-            : Padding(
-                padding: const EdgeInsets.all(12),
-                child: widget.app.useGrid
-                    ? _StoriesGrid(stories: list, app: widget.app)
-                    : _StoriesList(stories: list, app: widget.app),
-              ),
+      body: FutureBuilder<List<Story>>(
+        future: _storiesFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          }
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return _EmptyState(
+              key: ValueKey('empty_$_tabIndex'),
+              title: 'No stories found',
+              subtitle: 'Pull down to refresh.',
+            );
+          }
+
+          final all = snapshot.data!;
+          final favIds = widget.app.favorites;
+          final favs = all.where((s) => favIds.contains(s.id)).toList();
+          final list = _tabIndex == 0 ? all : favs;
+
+          return RefreshIndicator(
+            onRefresh: _refresh,
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 250),
+              child: list.isEmpty
+                  ? _EmptyState(
+                      key: ValueKey('empty_$_tabIndex'),
+                      title: _tabIndex == 0 ? 'No stories yet' : 'No favorites yet',
+                      subtitle: _tabIndex == 0
+                          ? 'Stories will appear here.'
+                          : 'Tap the heart on a story to add it to favorites.',
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: widget.app.useGrid
+                          ? _StoriesGrid(stories: list, app: widget.app)
+                          : _StoriesList(stories: list, app: widget.app),
+                    ),
+            ),
+          );
+        },
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _tabIndex,
@@ -146,8 +182,8 @@ class _StoryCard extends StatelessWidget {
                   Positioned.fill(
                     child: Hero(
                       tag: 'img_${story.id}',
-                      child: Image.asset(
-                        story.imageAsset,
+                      child: Image.network(
+                        story.image,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -197,8 +233,8 @@ class _StoryTile extends StatelessWidget {
           aspectRatio: 1,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              story.imageAsset,
+            child: Image.network(
+              story.image,
               fit: BoxFit.cover,
             ),
           ),

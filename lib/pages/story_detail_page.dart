@@ -41,8 +41,8 @@ class StoryDetailPage extends StatelessWidget {
               tag: 'img_${story.id}',
               child: AspectRatio(
                 aspectRatio: 16 / 9,
-                child: Image.asset(
-                  story.imageAsset,
+                child: Image.network(
+                  story.image,
                   fit: BoxFit.cover,
                 ),
               ),

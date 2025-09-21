@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kidibook/theme.dart';
 import 'controllers/app_state.dart';
 import 'pages/home_page.dart';
 import 'pages/onboarding_name_page.dart';
+import 'data/stories_data.dart' as data;
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+
+  await data.initializeRepository();
+
   runApp(const MyApp());
 }
 

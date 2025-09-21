@@ -1,26 +1,30 @@
 import 'package:flutter/foundation.dart';
-import '../stories/story_content.dart';
 
 class Story {
   final String id;
   final String title;
-  final String imageAsset; // Local SVG asset path
-  final String bodyTemplate; // Use {{name}} placeholder for kid name
-  final StoryContent? content; // Optional: long-form content provider
+  final String image; // Full URL to the image
+  final String body; // Use {{name}} placeholder for kid name
 
   const Story({
     required this.id,
     required this.title,
-    required this.imageAsset,
-    required this.bodyTemplate,
-    this.content,
+    required this.image,
+    required this.body,
   });
 
+  factory Story.fromJson(Map<String, dynamic> json) {
+    const String imageBaseUrl = 'https://raw.githubusercontent.com/SuperHich/kidibook-api/main/';
+    return Story(
+      id: json['id'],
+      title: json['title'],
+      image: imageBaseUrl + json['image'],
+      body: json['body'],
+    );
+  }
+
   String bodyWithName(String kidName) {
-    if (content != null) {
-      return content!.renderBody(kidName);
-    }
-    return bodyTemplate.replaceAll('{{name}}', kidName);
+    return body.replaceAll('{{name}}', kidName);
   }
 }
 
@@ -34,8 +38,8 @@ class StoriesRepository {
         orElse: () => const Story(
           id: 'not_found',
           title: 'Missing Story',
-          imageAsset: 'assets/svgs/placeholder.svg',
-          bodyTemplate:
+          image: 'assets/svgs/placeholder.svg',
+          body:
               'Oops! The story could not be found. {{name}} can pick another adventure!',
         ),
       );
