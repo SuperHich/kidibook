@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+enum SortOrder { alphaUp, alphaDown }
+
 class AppStateController extends ChangeNotifier {
   AppStateController();
 
@@ -10,6 +12,7 @@ class AppStateController extends ChangeNotifier {
   int _seedColor = Colors.purple.value; // store as ARGB int
   final Set<String> _favoriteIds = <String>{};
   bool _useGrid = true;
+  SortOrder _sortOrder = SortOrder.alphaUp;
 
   // Getters
   String get kidName => _kidName.isEmpty ? 'Kid' : _kidName;
@@ -17,6 +20,7 @@ class AppStateController extends ChangeNotifier {
   Color get seedColor => Color(_seedColor);
   Set<String> get favorites => _favoriteIds;
   bool get useGrid => _useGrid;
+  SortOrder get sortOrder => _sortOrder;
 
   // Helper: get prefs safely (prevents MissingPluginException on early web init)
   Future<SharedPreferences?> _prefsSafely() async {
@@ -42,6 +46,10 @@ class AppStateController extends ChangeNotifier {
         ..clear()
         ..addAll(prefs.getStringList('favorite_ids') ?? const <String>[]);
       _useGrid = prefs.getBool('use_grid') ?? true;
+      _sortOrder = switch (prefs.getString('sort_order')) {
+        'alphaDown' => SortOrder.alphaDown,
+        _ => SortOrder.alphaUp,
+      };
     }
     // If prefs is null, keep defaults and still notify to continue app boot
     notifyListeners();
@@ -85,6 +93,16 @@ class AppStateController extends ChangeNotifier {
     final prefs = await _prefsSafely();
     if (prefs != null) {
       await prefs.setBool('use_grid', _useGrid);
+    }
+    notifyListeners();
+  }
+
+  // Sort order
+  Future<void> setSortOrder(SortOrder order) async {
+    _sortOrder = order;
+    final prefs = await _prefsSafely();
+    if (prefs != null) {
+      await prefs.setString('sort_order', order.name);
     }
     notifyListeners();
   }

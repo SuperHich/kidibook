@@ -40,6 +40,15 @@ class _HomePageState extends State<HomePage> {
         title: Text(_tabIndex == 0 ? 'Stories for ${widget.app.kidName}' : 'Favorites'),
         actions: [
           IconButton(
+            tooltip: 'Sort stories',
+            onPressed: () {
+              final current = widget.app.sortOrder;
+              widget.app.setSortOrder(current == SortOrder.alphaUp ? SortOrder.alphaDown : SortOrder.alphaUp);
+            },
+            icon: Icon(widget.app.sortOrder == SortOrder.alphaUp ? Icons.arrow_downward : Icons.arrow_upward),
+            color: Colors.blue,
+          ),
+          IconButton(
             tooltip: widget.app.useGrid ? 'Use list' : 'Use grid',
             onPressed: () => widget.app.setUseGrid(!widget.app.useGrid),
             icon: Icon(widget.app.useGrid ? Icons.view_list : Icons.grid_view),
@@ -80,6 +89,13 @@ class _HomePageState extends State<HomePage> {
           }
 
           final all = snapshot.data!;
+          all.sort((a, b) {
+            if (widget.app.sortOrder == SortOrder.alphaUp) {
+              return a.title.compareTo(b.title);
+            }
+            return b.title.compareTo(a.title);
+          });
+
           final favIds = widget.app.favorites;
           final favs = all.where((s) => favIds.contains(s.id)).toList();
           final list = _tabIndex == 0 ? all : favs;
