@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 import '../l10n/app_localizations.dart';
 
 import '../controllers/app_state.dart';
@@ -39,7 +40,18 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_tabIndex == 0 ? loc.storiesFor(widget.app.kidName) : loc.favorites),
+        title: SizedBox(
+          height: 40,
+          child: Marquee(
+            text: _tabIndex == 0 ? loc.storiesFor(widget.app.kidName) : loc.favorites,
+            style: Theme.of(context).textTheme.titleLarge,
+            blankSpace: 50,
+            velocity: 50,
+            pauseAfterRound: const Duration(seconds: 2),
+            fadingEdgeStartFraction: 0.1,
+            fadingEdgeEndFraction: 0.1,
+          ),
+        ),
         actions: [
           IconButton(
             tooltip: loc.sortStories,

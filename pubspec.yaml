@@ -21,6 +21,7 @@ dependencies:
   flutter_launcher_icons: ^0.14.4
   connectivity_plus: ^7.0.0
   cached_network_image: ^3.3.1
+  marquee: ^2.2.3
 
 dependency_overrides:
   sqflite_android: 2.4.1
