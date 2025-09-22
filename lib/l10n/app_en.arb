@@ -1,0 +1,58 @@
+{
+  "@@locale": "en",
+  "kidiBook": "KidiBook",
+  "storiesFor": "Stories for {kidName}",
+  "@storiesFor": {
+    "description": "Title for the stories page, with the kid's name",
+    "placeholders": {
+      "kidName": {
+        "type": "String"
+      }
+    }
+  },
+  "favorites": "Favorites",
+  "sortStories": "Sort stories",
+  "useList": "Use list",
+  "useGrid": "Use grid",
+  "themeAndSettings": "Theme & Settings",
+  "all": "All",
+  "error": "Error: {message}",
+  "@error": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "noStoriesFound": "No stories found",
+  "pullToRefresh": "Pull down to refresh.",
+  "noStoriesYet": "No stories yet",
+  "storiesWillAppearHere": "Stories will appear here.",
+  "noFavoritesYet": "No favorites yet",
+  "tapHeartToFavorite": "Tap the heart on a story to add it to favorites.",
+  "welcome": "Welcome!",
+  "personalizeStories": "Let's personalize the stories. What is the kid's name?",
+  "kidsName": "Kid's name",
+  "pleaseEnterName": "Please enter a name",
+  "nameMinLength": "Name should be at least 2 characters",
+  "continueButton": "Continue",
+  "changeNameLater": "You can change the name later in Settings.",
+  "copiedToClipboard": "Copied to clipboard",
+  "themeSettings": "Theme & Settings",
+  "theme": "Theme",
+  "system": "System",
+  "light": "Light",
+  "dark": "Dark",
+  "layout": "Layout",
+  "useGridOnStoriesPage": "Use grid on stories page",
+  "enterName": "Enter name",
+  "nameUpdatedSuccessfully": "Name updated to \"{name}\" successfully!",
+  "@nameUpdatedSuccessfully": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "save": "Save"
+}

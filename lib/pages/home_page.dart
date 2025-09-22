@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 
 import '../controllers/app_state.dart';
 import '../data/stories_data.dart';
@@ -34,13 +35,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme;
+    final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_tabIndex == 0 ? 'Stories for ${widget.app.kidName}' : 'Favorites'),
+        title: Text(_tabIndex == 0 ? loc.storiesFor(widget.app.kidName) : loc.favorites),
         actions: [
           IconButton(
-            tooltip: 'Sort stories',
+            tooltip: loc.sortStories,
             onPressed: () {
               final current = widget.app.sortOrder;
               widget.app.setSortOrder(current == SortOrder.alphaUp ? SortOrder.alphaDown : SortOrder.alphaUp);
@@ -49,13 +51,13 @@ class _HomePageState extends State<HomePage> {
             color: Colors.blue,
           ),
           IconButton(
-            tooltip: widget.app.useGrid ? 'Use list' : 'Use grid',
+            tooltip: widget.app.useGrid ? loc.useList : loc.useGrid,
             onPressed: () => widget.app.setUseGrid(!widget.app.useGrid),
             icon: Icon(widget.app.useGrid ? Icons.view_list : Icons.grid_view),
             color: Colors.blue,
           ),
           IconButton(
-            tooltip: 'Theme & Settings',
+            tooltip: loc.themeAndSettings,
             onPressed: () async {
               await Navigator.of(context).push(
                 MaterialPageRoute(
@@ -77,14 +79,14 @@ class _HomePageState extends State<HomePage> {
           }
           if (snapshot.hasError) {
             return Center(
-              child: Text('Error: ${snapshot.error}'),
+              child: Text(loc.error(snapshot.error.toString())),
             );
           }
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return _EmptyState(
               key: ValueKey('empty_$_tabIndex'),
-              title: 'No stories found',
-              subtitle: 'Pull down to refresh.',
+              title: loc.noStoriesFound,
+              subtitle: loc.pullToRefresh,
             );
           }
 
@@ -107,10 +109,10 @@ class _HomePageState extends State<HomePage> {
               child: list.isEmpty
                   ? _EmptyState(
                       key: ValueKey('empty_$_tabIndex'),
-                      title: _tabIndex == 0 ? 'No stories yet' : 'No favorites yet',
+                      title: _tabIndex == 0 ? loc.noStoriesYet : loc.noFavoritesYet,
                       subtitle: _tabIndex == 0
-                          ? 'Stories will appear here.'
-                          : 'Tap the heart on a story to add it to favorites.',
+                          ? loc.storiesWillAppearHere
+                          : loc.tapHeartToFavorite,
                     )
                   : Padding(
                       padding: const EdgeInsets.all(12),
@@ -125,9 +127,9 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: NavigationBar(
         selectedIndex: _tabIndex,
         onDestinationSelected: (i) => setState(() => _tabIndex = i),
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.auto_stories_outlined), selectedIcon: Icon(Icons.auto_stories), label: 'All'),
-          NavigationDestination(icon: Icon(Icons.favorite_border), selectedIcon: Icon(Icons.favorite), label: 'Favorites'),
+        destinations: [
+          NavigationDestination(icon: const Icon(Icons.auto_stories_outlined), selectedIcon: const Icon(Icons.auto_stories), label: loc.all),
+          NavigationDestination(icon: const Icon(Icons.favorite_border), selectedIcon: const Icon(Icons.favorite), label: loc.favorites),
         ],
       ),
     );
@@ -179,6 +181,7 @@ class _StoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isFav = app.isFavorite(story.id);
     final color = Theme.of(context).colorScheme;
+    final loc = AppLocalizations.of(context)!;
 
     return InkWell(
       onTap: () {
@@ -243,6 +246,7 @@ class _StoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isFav = app.isFavorite(story.id);
+    final loc = AppLocalizations.of(context)!;
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
@@ -285,6 +289,8 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'l10n/app_localizations.dart';
 import 'package:kidibook/theme.dart';
 import 'controllers/app_state.dart';
 import 'pages/home_page.dart';
@@ -67,6 +68,8 @@ class _MyAppState extends State<MyApp> {
       theme: themedLight,
       darkTheme: themedDark,
       themeMode: app.themeMode,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       routes: {
         '/': (_) => !_loaded
             ? const _Splash()

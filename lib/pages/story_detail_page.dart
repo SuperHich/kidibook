@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../l10n/app_localizations.dart';
 
 import '../controllers/app_state.dart';
 import '../models/story.dart';
@@ -14,6 +15,7 @@ class StoryDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final isFav = app.isFavorite(story.id);
     final color = Theme.of(context).colorScheme;
+    final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +30,7 @@ class StoryDetailPage extends StatelessWidget {
             icon: const Icon(Icons.copy),
             onPressed: () {
               Clipboard.setData(ClipboardData(text: story.bodyWithName(app.kidName)));
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Copied to clipboard')));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(loc.copiedToClipboard)));
             },
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../controllers/app_state.dart';
 
 class OnboardingNamePage extends StatefulWidget {
@@ -31,6 +32,8 @@ class _OnboardingNamePageState extends State<OnboardingNamePage> {
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).colorScheme;
+    final loc = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: color.surface,
       body: SafeArea(
@@ -41,13 +44,13 @@ class _OnboardingNamePageState extends State<OnboardingNamePage> {
             children: [
               const SizedBox(height: 48),
               Text(
-                'Welcome!',
+                loc.welcome,
                 style: Theme.of(context).textTheme.headlineLarge,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
               Text(
-                'Let\'s personalize the stories. What is the kid\'s name?',
+                loc.personalizeStories,
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
@@ -57,16 +60,16 @@ class _OnboardingNamePageState extends State<OnboardingNamePage> {
                 child: TextFormField(
                   controller: _controller,
                   textCapitalization: TextCapitalization.words,
-                  decoration: const InputDecoration(
-                    labelText: 'Kid\'s name',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: loc.kidsName,
+                    border: const OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Please enter a name';
+                      return loc.pleaseEnterName;
                     }
                     if (value.trim().length < 2) {
-                      return 'Name should be at least 2 characters';
+                      return loc.nameMinLength;
                     }
                     return null;
                   },
@@ -76,11 +79,11 @@ class _OnboardingNamePageState extends State<OnboardingNamePage> {
               const SizedBox(height: 24),
               FilledButton(
                 onPressed: _submit,
-                child: const Text('Continue'),
+                child: Text(loc.continueButton),
               ),
               const Spacer(),
               Text(
-                'You can change the name later in Settings.',
+                loc.changeNameLater,
                 style: Theme.of(context).textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),

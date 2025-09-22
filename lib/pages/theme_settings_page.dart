@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../controllers/app_state.dart';
 
 class ThemeSettingsPage extends StatelessWidget {
@@ -7,6 +8,7 @@ class ThemeSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final colors = [
       Colors.purple,
       Colors.blue,
@@ -17,21 +19,21 @@ class ThemeSettingsPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Theme & Settings')),
+      appBar: AppBar(title: Text(loc.themeSettings)),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          Text('Kid\'s name', style: Theme.of(context).textTheme.titleMedium),
+          Text(loc.kidsName, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           _NameField(app: app),
           const SizedBox(height: 24),
-          Text('Theme', style: Theme.of(context).textTheme.titleMedium),
+          Text(loc.theme, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           SegmentedButton<ThemeMode>(
-            segments: const [
-              ButtonSegment(value: ThemeMode.system, label: Text('System'), icon: Icon(Icons.settings_suggest)),
-              ButtonSegment(value: ThemeMode.light, label: Text('Light'), icon: Icon(Icons.wb_sunny)),
-              ButtonSegment(value: ThemeMode.dark, label: Text('Dark'), icon: Icon(Icons.nightlight)),
+            segments: [
+              ButtonSegment(value: ThemeMode.system, label: Text(loc.system), icon: const Icon(Icons.settings_suggest)),
+              ButtonSegment(value: ThemeMode.light, label: Text(loc.light), icon: const Icon(Icons.wb_sunny)),
+              ButtonSegment(value: ThemeMode.dark, label: Text(loc.dark), icon: const Icon(Icons.nightlight)),
             ],
             selected: {app.themeMode},
             onSelectionChanged: (set) => app.setThemeMode(set.first),
@@ -50,10 +52,10 @@ class ThemeSettingsPage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 24),
-          Text('Layout', style: Theme.of(context).textTheme.titleMedium),
+          Text(loc.layout, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           SwitchListTile(
-            title: const Text('Use grid on stories page'),
+            title: Text(loc.useGridOnStoriesPage),
             value: app.useGrid,
             onChanged: (v) => app.setUseGrid(v),
             secondary: const Icon(Icons.grid_view),
@@ -89,15 +91,16 @@ class _NameFieldState extends State<_NameField> {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     return Row(
       children: [
         Expanded(
           child: TextField(
             controller: _controller,
             textCapitalization: TextCapitalization.words,
-            decoration: const InputDecoration(
-              hintText: 'Enter name',
-              border: OutlineInputBorder(),
+            decoration: InputDecoration(
+              hintText: loc.enterName,
+              border: const OutlineInputBorder(),
             ),
           ),
         ),
@@ -107,12 +110,12 @@ class _NameFieldState extends State<_NameField> {
             widget.app.setKidName(_controller.text);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Name updated to "${_controller.text}" successfully!'),
+                content: Text(loc.nameUpdatedSuccessfully(_controller.text)),
                 behavior: SnackBarBehavior.floating,
               ),
             );
           },
-          child: const Text('Save'),
+          child: Text(loc.save),
         ),
       ],
     );
