@@ -31,9 +31,9 @@ class ThemeSettingsPage extends StatelessWidget {
           const SizedBox(height: 8),
           SegmentedButton<ThemeMode>(
             segments: [
-              ButtonSegment(value: ThemeMode.system, label: Text(loc.system), icon: const Icon(Icons.settings_suggest)),
-              ButtonSegment(value: ThemeMode.light, label: Text(loc.light), icon: const Icon(Icons.wb_sunny)),
-              ButtonSegment(value: ThemeMode.dark, label: Text(loc.dark), icon: const Icon(Icons.nightlight)),
+              ButtonSegment(value: ThemeMode.system, label: Text(loc.system, maxLines: 1), icon: const Icon(Icons.settings_suggest)),
+              ButtonSegment(value: ThemeMode.light, label: Text(loc.light, maxLines: 1), icon: const Icon(Icons.wb_sunny)),
+              ButtonSegment(value: ThemeMode.dark, label: Text(loc.dark, maxLines: 1), icon: const Icon(Icons.nightlight)),
             ],
             selected: {app.themeMode},
             onSelectionChanged: (set) => app.setThemeMode(set.first),
