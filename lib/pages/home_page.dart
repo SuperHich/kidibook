@@ -155,17 +155,35 @@ class _StoriesGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final columns = MediaQuery.of(context).size.width ~/ 180.0;
-    return GridView.builder(
-      itemCount: stories.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: columns.clamp(2, 4),
-        mainAxisSpacing: 12,
-        crossAxisSpacing: 12,
-        childAspectRatio: 0.78,
-      ),
-      itemBuilder: (context, index) => _StoryCard(story: stories[index], app: app),
-    );
+    final screenSize = MediaQuery.of(context).size;
+    final isLandscape = screenSize.width > screenSize.height;
+    
+    if (isLandscape) {
+      // In landscape: use dynamic height with horizontal cards
+      return GridView.builder(
+        itemCount: stories.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, // 2 columns in landscape
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+          childAspectRatio: 3.5, // Wide aspect ratio for horizontal cards
+        ),
+        itemBuilder: (context, index) => _StoryCardHorizontal(story: stories[index], app: app),
+      );
+    } else {
+      // In portrait: use original vertical card layout
+      final columns = (screenSize.width ~/ 180.0).clamp(2, 3);
+      return GridView.builder(
+        itemCount: stories.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: columns,
+          mainAxisSpacing: 12,
+          crossAxisSpacing: 12,
+          childAspectRatio: 0.78,
+        ),
+        itemBuilder: (context, index) => _StoryCard(story: stories[index], app: app),
+      );
+    }
   }
 }
 
@@ -241,6 +259,92 @@ class _StoryCard extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StoryCardHorizontal extends StatelessWidget {
+  final Story story;
+  final AppStateController app;
+  const _StoryCardHorizontal({required this.story, required this.app});
+
+  @override
+  Widget build(BuildContext context) {
+    final isFav = app.isFavorite(story.id);
+    final color = Theme.of(context).colorScheme;
+    final loc = AppLocalizations.of(context)!;
+
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => StoryDetailPage(story: story, app: app),
+          ),
+        );
+      },
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        color: Theme.of(context).brightness == Brightness.light
+            ? Colors.white
+            : color.surface.withValues(alpha: 0.4),
+        child: Row(
+          children: [
+            Expanded(
+              child: Hero(
+                tag: 'img_${story.id}',
+                child: CachedNetworkImage(
+                  imageUrl: story.image,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Stack(
+                children: [
+                  // Centered title
+                  Positioned.fill(
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          story.title,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Favorite icon in top right
+                  Positioned(
+                    top: 4,
+                    right: 4,
+                    child: IconButton(
+                      icon: Icon(isFav ? Icons.favorite : Icons.favorite_border),
+                      color: isFav ? Colors.red : color.onSurface,
+                      iconSize: 20,
+                      padding: const EdgeInsets.all(4),
+                      constraints: const BoxConstraints(
+                        minWidth: 32,
+                        minHeight: 32,
+                      ),
+                      onPressed: () => app.toggleFavorite(story.id),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
