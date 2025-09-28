@@ -19,7 +19,10 @@ class ThemeSettingsPage extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(loc.themeSettings)),
+      appBar: AppBar(
+        backgroundColor: app.seedColor.withAlpha(25),
+        title: Text(loc.themeSettings),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -46,7 +49,7 @@ class ThemeSettingsPage extends StatelessWidget {
               for (final c in colors)
                 _ColorChoice(
                   color: c,
-                  selected: app.seedColor.value == c.value,
+                  selected: app.seedColor.toARGB32() == c.toARGB32(),
                   onTap: () => app.setSeedColor(c),
                 )
             ],
@@ -140,7 +143,7 @@ class _ColorChoice extends StatelessWidget {
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
+              color: Colors.black.withAlpha(25),
               blurRadius: 8,
               offset: const Offset(0, 2),
             )

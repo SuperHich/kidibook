@@ -19,6 +19,7 @@ class StoryDetailPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: app.seedColor.withAlpha(0x1A),
         title: Text(story.title),
         actions: [
           IconButton(

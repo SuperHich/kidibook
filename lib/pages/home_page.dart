@@ -40,6 +40,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: widget.app.seedColor.withValues(alpha: 0.1),
         title: SizedBox(
           height: 40,
           child: Marquee(
