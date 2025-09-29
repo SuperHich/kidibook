@@ -194,6 +194,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 For support, email creative.apps.rh@gmail.com or create an issue in the repository.
 
+## Buy me a coffee
+To keep app content up to date, please feel free to support me : https://buymeacoffee.com/superhich
+
 ---
 
 Made with ❤️ for children and families
