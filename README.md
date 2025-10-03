@@ -197,6 +197,9 @@ For support, email creative.apps.rh@gmail.com or create an issue in the reposito
 ## Buy me a coffee
 To keep app content up to date, please feel free to support me : https://buymeacoffee.com/superhich
 
+## Suggest your own story
+In order to add you favorite short story or your own creation, you could send me your suggestions here : https://docs.google.com/forms/d/e/1FAIpQLSdA_-68QOrrYobiYMm9a-7hXRkT7lrd_r8OygdloH9embBvGg/viewform
+
 ---
 
 Made with ❤️ for children and families
