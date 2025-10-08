@@ -55,15 +55,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noFavoritesYet => 'No favorites yet';
 
   @override
-  String get tapHeartToFavorite =>
-      'Tap the heart on a story to add it to favorites.';
+  String get tapHeartToFavorite => 'Tap the heart on a story to add it to favorites.';
 
   @override
   String get welcome => 'Welcome!';
 
   @override
-  String get personalizeStories =>
-      'Let\'s personalize the stories. What is the kid\'s name?';
+  String get personalizeStories => 'Let\'s personalize the stories. What is the kid\'s name?';
 
   @override
   String get kidsName => 'Kid\'s name';
@@ -102,9 +100,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get layout => 'Layout';
 
   @override
-  String get useGridOnStoriesPage => 'Use grid on stories page';
-
-  @override
   String get enterName => 'Enter name';
 
   @override
@@ -114,4 +109,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get save => 'Save';
+
+  @override
+  String get kidsGender => 'Kid\'s gender';
+
+  @override
+  String get boy => 'Boy';
+
+  @override
+  String get girl => 'Girl';
 }

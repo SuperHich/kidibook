@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum SortOrder { alphaUp, alphaDown }
+enum KidGender { boy, girl }
 
 class AppStateController extends ChangeNotifier {
   AppStateController();
 
   // Persistent fields
   String _kidName = '';
+  KidGender _kidGender = KidGender.boy;
   ThemeMode _themeMode = ThemeMode.system;
-  int _seedColor = Colors.purple.value; // store as ARGB int
+  int _seedColor = Colors.purple.toARGB32();
   final Set<String> _favoriteIds = <String>{};
   bool _useGrid = true;
   SortOrder _sortOrder = SortOrder.alphaUp;
 
   // Getters
   String get kidName => _kidName.isEmpty ? 'Kid' : _kidName;
+  KidGender get kidGender => _kidGender;
   ThemeMode get themeMode => _themeMode;
   Color get seedColor => Color(_seedColor);
   Set<String> get favorites => _favoriteIds;
@@ -36,6 +39,10 @@ class AppStateController extends ChangeNotifier {
     final prefs = await _prefsSafely();
     if (prefs != null) {
       _kidName = prefs.getString('kid_name') ?? '';
+      _kidGender = switch (prefs.getString('kid_gender')) {
+        'boy' => KidGender.boy,
+        _ => KidGender.girl,
+      };
       _themeMode = switch (prefs.getString('theme_mode')) {
         'light' => ThemeMode.light,
         'dark' => ThemeMode.dark,
@@ -61,6 +68,16 @@ class AppStateController extends ChangeNotifier {
     final prefs = await _prefsSafely();
     if (prefs != null) {
       await prefs.setString('kid_name', _kidName);
+    }
+    notifyListeners();
+  }
+
+  // Name
+  Future<void> setKidGender(KidGender gender) async {
+    _kidGender = gender;
+    final prefs = await _prefsSafely();
+    if (prefs != null) {
+      await prefs.setString('kid_gender', _kidGender.name);
     }
     notifyListeners();
   }

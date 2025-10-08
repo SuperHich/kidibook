@@ -55,15 +55,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get noFavoritesYet => 'Aucun favori pour le moment';
 
   @override
-  String get tapHeartToFavorite =>
-      'Appuyez sur le cœur d\'une histoire pour l\'ajouter aux favoris.';
+  String get tapHeartToFavorite => 'Appuyez sur le cœur d\'une histoire pour l\'ajouter aux favoris.';
 
   @override
   String get welcome => 'Bienvenue !';
 
   @override
-  String get personalizeStories =>
-      'Personnalisons les histoires. Quel est le nom de l\'enfant ?';
+  String get personalizeStories => 'Personnalisons les histoires. Quel est le nom de l\'enfant ?';
 
   @override
   String get kidsName => 'Nom de l\'enfant';
@@ -78,8 +76,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get continueButton => 'Continuer';
 
   @override
-  String get changeNameLater =>
-      'Vous pourrez changer le nom plus tard dans les Paramètres.';
+  String get changeNameLater => 'Vous pourrez changer le nom plus tard dans les Paramètres.';
 
   @override
   String get copiedToClipboard => 'Copié dans le presse-papiers';
@@ -103,10 +100,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get layout => 'Mise en page';
 
   @override
-  String get useGridOnStoriesPage =>
-      'Utiliser la grille sur la page des histoires';
-
-  @override
   String get enterName => 'Entrez le nom';
 
   @override
@@ -116,4 +109,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get save => 'Enregistrer';
+
+  @override
+  String get kidsGender => 'Genre de l\'enfant';
+
+  @override
+  String get boy => 'Garçon';
+
+  @override
+  String get girl => 'Fille';
 }

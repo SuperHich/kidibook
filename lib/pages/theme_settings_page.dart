@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../l10n/app_localizations.dart';
+
 import '../controllers/app_state.dart';
+import '../l10n/app_localizations.dart';
 
 class ThemeSettingsPage extends StatelessWidget {
   final AppStateController app;
@@ -30,6 +31,17 @@ class ThemeSettingsPage extends StatelessWidget {
           const SizedBox(height: 8),
           _NameField(app: app),
           const SizedBox(height: 24),
+          Text(loc.kidsGender, style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 8),
+          SegmentedButton<KidGender>(
+            segments: [
+              ButtonSegment(value: KidGender.boy, label: Text(loc.boy, maxLines: 1), icon: const Icon(Icons.male)),
+              ButtonSegment(value: KidGender.girl, label: Text(loc.girl, maxLines: 1), icon: const Icon(Icons.female)),
+            ],
+            selected: {app.kidGender},
+            onSelectionChanged: (set) => app.setKidGender(set.first),
+          ),
+          const SizedBox(height: 24),
           Text(loc.theme, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 8),
           SegmentedButton<ThemeMode>(
@@ -53,15 +65,6 @@ class ThemeSettingsPage extends StatelessWidget {
                   onTap: () => app.setSeedColor(c),
                 )
             ],
-          ),
-          const SizedBox(height: 24),
-          Text(loc.layout, style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 8),
-          SwitchListTile(
-            title: Text(loc.useGridOnStoriesPage),
-            value: app.useGrid,
-            onChanged: (v) => app.setUseGrid(v),
-            secondary: const Icon(Icons.grid_view),
           ),
         ],
       ),
@@ -101,24 +104,20 @@ class _NameFieldState extends State<_NameField> {
           child: TextField(
             controller: _controller,
             textCapitalization: TextCapitalization.words,
+            onEditingComplete: () {
+              widget.app.setKidName(_controller.text);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(loc.nameUpdatedSuccessfully(_controller.text)),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            },
             decoration: InputDecoration(
               hintText: loc.enterName,
               border: const OutlineInputBorder(),
             ),
           ),
-        ),
-        const SizedBox(width: 8),
-        FilledButton(
-          onPressed: () {
-            widget.app.setKidName(_controller.text);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(loc.nameUpdatedSuccessfully(_controller.text)),
-                behavior: SnackBarBehavior.floating,
-              ),
-            );
-          },
-          child: Text(loc.save),
         ),
       ],
     );

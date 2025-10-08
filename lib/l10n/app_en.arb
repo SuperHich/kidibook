@@ -44,7 +44,6 @@
   "light": "Light",
   "dark": "Dark",
   "layout": "Layout",
-  "useGridOnStoriesPage": "Use grid on stories page",
   "enterName": "Enter name",
   "nameUpdatedSuccessfully": "Name updated to \"{name}\" successfully!",
   "@nameUpdatedSuccessfully": {
@@ -54,5 +53,8 @@
       }
     }
   },
-  "save": "Save"
+  "save": "Save",
+  "kidsGender": "Kid's gender",
+  "boy": "Boy",
+  "girl": "Girl"
 }

@@ -29,8 +29,10 @@
   "light": "Clair",
   "dark": "Sombre",
   "layout": "Mise en page",
-  "useGridOnStoriesPage": "Utiliser la grille sur la page des histoires",
   "enterName": "Entrez le nom",
   "nameUpdatedSuccessfully": "Nom mis à jour vers \"{name}\" avec succès !",
-  "save": "Enregistrer"
+  "save": "Enregistrer",
+  "kidsGender": "Genre de l'enfant",
+  "boy": "Garçon",
+  "girl": "Fille"
 }
