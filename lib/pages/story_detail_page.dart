@@ -1,14 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../l10n/app_localizations.dart';
 
 import '../controllers/app_state.dart';
+import '../l10n/app_localizations.dart';
 import '../models/story.dart';
 
 class StoryDetailPage extends StatelessWidget {
   final Story story;
   final AppStateController app;
+
   const StoryDetailPage({super.key, required this.story, required this.app});
 
   @override
@@ -30,8 +31,10 @@ class StoryDetailPage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.copy),
             onPressed: () {
-              Clipboard.setData(ClipboardData(text: story.bodyWithName(app.kidName)));
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(loc.copiedToClipboard)));
+              Clipboard.setData(ClipboardData(
+                  text: story.bodyWithName(app.kidName, app.kidGender)));
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(loc.copiedToClipboard)));
             },
           ),
         ],
@@ -48,7 +51,8 @@ class StoryDetailPage extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl: story.image,
                   fit: BoxFit.cover,
-                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                  placeholder: (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
@@ -65,7 +69,7 @@ class StoryDetailPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                story.bodyWithName(app.kidName),
+                story.bodyWithName(app.kidName, app.kidGender),
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),

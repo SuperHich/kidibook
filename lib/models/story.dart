@@ -1,36 +1,46 @@
 import 'package:flutter/foundation.dart';
+import 'package:kidibook/controllers/app_state.dart';
 
 class Story {
   final String id;
   final String title;
   final String image; // Full URL to the image
-  final String body; // Use {{name}} placeholder for kid name
+  final String bodyBoy; // Use {{name}} placeholder for kid name
+  final String bodyGirl; // Use {{name}} placeholder for kid name
 
   const Story({
     required this.id,
     required this.title,
     required this.image,
-    required this.body,
+    required this.bodyBoy,
+    required this.bodyGirl
   });
 
   factory Story.fromJson(Map<String, dynamic> json) {
-    const String imageBaseUrl = 'https://raw.githubusercontent.com/SuperHich/kidibook-api/main/';
+    const String imageBaseUrl =
+        'https://raw.githubusercontent.com/SuperHich/kidibook-api/main/';
     return Story(
       id: json['id'],
       title: json['title'],
       image: imageBaseUrl + json['image'],
-      body: json['body'],
+      bodyBoy: json['body_boy'],
+      bodyGirl: json['body_girl'],
     );
   }
 
-  String bodyWithName(String kidName) {
-    return body.replaceAll('{{name}}', kidName);
+  String bodyWithName(String kidName, KidGender gender) {
+    if (gender == KidGender.boy) {
+      return bodyBoy.replaceAll('{{name}}', kidName);
+    } else {
+      return bodyGirl.replaceAll('{{name}}', kidName);
+    }
   }
 }
 
 @immutable
 class StoriesRepository {
   final List<Story> stories;
+
   const StoriesRepository(this.stories);
 
   Story? byId(String id) => stories.firstWhere(
@@ -39,7 +49,9 @@ class StoriesRepository {
           id: 'not_found',
           title: 'Missing Story',
           image: 'assets/svgs/placeholder.svg',
-          body:
+          bodyBoy:
+              'Oops! The story could not be found. {{name}} can pick another adventure!',
+          bodyGirl:
               'Oops! The story could not be found. {{name}} can pick another adventure!',
         ),
       );
