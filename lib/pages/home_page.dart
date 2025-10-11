@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final color = Theme.of(context).colorScheme;
     final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
@@ -212,7 +211,7 @@ class _StoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isFav = app.isFavorite(story.id);
     final color = Theme.of(context).colorScheme;
-    final loc = AppLocalizations.of(context)!;
+    final image = app.kidGender == KidGender.boy ? story.image : story.imageGirl;
 
     return InkWell(
       onTap: () {
@@ -234,7 +233,7 @@ class _StoryCard extends StatelessWidget {
                     child: Hero(
                       tag: 'img_${story.id}',
                       child: CachedNetworkImage(
-                        imageUrl: story.image,
+                        imageUrl: image,
                         fit: BoxFit.cover,
                         placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) => const Icon(Icons.error),
@@ -278,7 +277,7 @@ class _StoryCardHorizontal extends StatelessWidget {
   Widget build(BuildContext context) {
     final isFav = app.isFavorite(story.id);
     final color = Theme.of(context).colorScheme;
-    final loc = AppLocalizations.of(context)!;
+    final image = app.kidGender == KidGender.boy ? story.image : story.imageGirl;
 
     return InkWell(
       onTap: () {
@@ -299,7 +298,7 @@ class _StoryCardHorizontal extends StatelessWidget {
               child: Hero(
                 tag: 'img_${story.id}',
                 child: CachedNetworkImage(
-                  imageUrl: story.image,
+                  imageUrl: image,
                   fit: BoxFit.cover,
                   placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
@@ -363,7 +362,7 @@ class _StoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isFav = app.isFavorite(story.id);
-    final loc = AppLocalizations.of(context)!;
+    final image = app.kidGender == KidGender.boy ? story.image : story.imageGirl;
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
@@ -374,7 +373,7 @@ class _StoryTile extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: CachedNetworkImage(
-              imageUrl: story.image,
+              imageUrl: image,
               fit: BoxFit.cover,
               placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
               errorWidget: (context, url, error) => const Icon(Icons.error),
@@ -406,8 +405,6 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
-
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24),

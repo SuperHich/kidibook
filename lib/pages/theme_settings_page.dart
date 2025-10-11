@@ -1,10 +1,36 @@
 import 'package:flutter/material.dart';
-import '../l10n/app_localizations.dart';
-import '../controllers/app_state.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-class ThemeSettingsPage extends StatelessWidget {
+import '../controllers/app_state.dart';
+import '../l10n/app_localizations.dart';
+
+class ThemeSettingsPage extends StatefulWidget {
   final AppStateController app;
   const ThemeSettingsPage({super.key, required this.app});
+
+  @override
+  State<ThemeSettingsPage> createState() => _ThemeSettingsPageState();
+}
+
+class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
+  String? _version;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadVersion();
+  }
+
+  Future<void> _loadVersion() async {
+    try {
+      final packageInfo = await PackageInfo.fromPlatform();
+      setState(() {
+        _version = packageInfo.version;
+      });
+    } catch (e) {
+      // Handle error silently, version will remain null
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,49 +46,98 @@ class ThemeSettingsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: app.seedColor.withAlpha(25),
+        backgroundColor: widget.app.seedColor.withAlpha(25),
         title: Text(loc.themeSettings),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
+      body: Column(
         children: [
-          Text(loc.kidsName, style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 8),
-          _NameField(app: app),
-          const SizedBox(height: 24),
-          Text(loc.theme, style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 8),
-          SegmentedButton<ThemeMode>(
-            segments: [
-              ButtonSegment(value: ThemeMode.system, label: Text(loc.system, maxLines: 1), icon: const Icon(Icons.settings_suggest)),
-              ButtonSegment(value: ThemeMode.light, label: Text(loc.light, maxLines: 1), icon: const Icon(Icons.wb_sunny)),
-              ButtonSegment(value: ThemeMode.dark, label: Text(loc.dark, maxLines: 1), icon: const Icon(Icons.nightlight)),
-            ],
-            selected: {app.themeMode},
-            onSelectionChanged: (set) => app.setThemeMode(set.first),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                Text(loc.kidsName, style: Theme
+                    .of(context)
+                    .textTheme
+                    .titleMedium),
+                const SizedBox(height: 8),
+                _NameField(app: widget.app),
+                const SizedBox(height: 24),
+                Text(loc.kidsGender, style: Theme
+                    .of(context)
+                    .textTheme
+                    .titleMedium),
+                const SizedBox(height: 8),
+                SegmentedButton<KidGender>(
+                  segments: [
+                    ButtonSegment(value: KidGender.boy,
+                        label: Text(loc.boy, maxLines: 1),
+                        icon: const Icon(Icons.male)),
+                    ButtonSegment(value: KidGender.girl,
+                        label: Text(loc.girl, maxLines: 1),
+                        icon: const Icon(Icons.female)),
+                  ],
+                  selected: {widget.app.kidGender},
+                  onSelectionChanged: (set) =>
+                      widget.app.setKidGender(set.first),
+                ),
+                const SizedBox(height: 24),
+                Text(loc.theme, style: Theme
+                    .of(context)
+                    .textTheme
+                    .titleMedium),
+                const SizedBox(height: 8),
+                SegmentedButton<ThemeMode>(
+                  segments: [
+                    ButtonSegment(value: ThemeMode.system,
+                        label: Text(loc.system, maxLines: 1),
+                        icon: const Icon(Icons.settings_suggest)),
+                    ButtonSegment(value: ThemeMode.light,
+                        label: Text(loc.light, maxLines: 1),
+                        icon: const Icon(Icons.wb_sunny)),
+                    ButtonSegment(value: ThemeMode.dark,
+                        label: Text(loc.dark, maxLines: 1),
+                        icon: const Icon(Icons.nightlight)),
+                  ],
+                  selected: {widget.app.themeMode},
+                  onSelectionChanged: (set) =>
+                      widget.app.setThemeMode(set.first),
+                ),
+                const SizedBox(height: 16),
+                Wrap(
+                  spacing: 12,
+                  runSpacing: 12,
+                  children: [
+                    for (final c in colors)
+                      _ColorChoice(
+                        color: c,
+                        selected: widget.app.seedColor.toARGB32() ==
+                            c.toARGB32(),
+                        onTap: () => widget.app.setSeedColor(c),
+                      )
+                  ],
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 12,
-            runSpacing: 12,
-            children: [
-              for (final c in colors)
-                _ColorChoice(
-                  color: c,
-                  selected: app.seedColor.toARGB32() == c.toARGB32(),
-                  onTap: () => app.setSeedColor(c),
-                )
-            ],
-          ),
-          const SizedBox(height: 24),
-          Text(loc.layout, style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 8),
-          SwitchListTile(
-            title: Text(loc.useGridOnStoriesPage),
-            value: app.useGrid,
-            onChanged: (v) => app.setUseGrid(v),
-            secondary: const Icon(Icons.grid_view),
-          ),
+          if (_version != null)
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Version $_version',
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(
+                  color: Theme
+                      .of(context)
+                      .colorScheme
+                      .onSurface
+                      .withOpacity(0.6),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
         ],
       ),
     );
@@ -101,24 +176,20 @@ class _NameFieldState extends State<_NameField> {
           child: TextField(
             controller: _controller,
             textCapitalization: TextCapitalization.words,
+            onEditingComplete: () {
+              widget.app.setKidName(_controller.text);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(loc.nameUpdatedSuccessfully(_controller.text)),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            },
             decoration: InputDecoration(
               hintText: loc.enterName,
               border: const OutlineInputBorder(),
             ),
           ),
-        ),
-        const SizedBox(width: 8),
-        FilledButton(
-          onPressed: () {
-            widget.app.setKidName(_controller.text);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(loc.nameUpdatedSuccessfully(_controller.text)),
-                behavior: SnackBarBehavior.floating,
-              ),
-            );
-          },
-          child: Text(loc.save),
         ),
       ],
     );
@@ -157,3 +228,4 @@ class _ColorChoice extends StatelessWidget {
     );
   }
 }
+

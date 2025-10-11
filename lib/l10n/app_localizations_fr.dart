@@ -55,31 +55,28 @@ class AppLocalizationsFr extends AppLocalizations {
   String get noFavoritesYet => 'Aucun favori pour le moment';
 
   @override
-  String get tapHeartToFavorite =>
-      'Appuyez sur le cœur d\'une histoire pour l\'ajouter aux favoris.';
+  String get tapHeartToFavorite => 'Appuyez sur le cœur d\'une histoire pour l\'ajouter aux favoris.';
 
   @override
   String get welcome => 'Bienvenue !';
 
   @override
-  String get personalizeStories =>
-      'Personnalisons les histoires. Quel est le nom de l\'enfant ?';
+  String get personalizeStories => 'Personnalisons les histoires. Quel est le nom de l\'enfant ?';
 
   @override
-  String get kidsName => 'Nom de l\'enfant';
+  String get kidsName => 'Prénom de l\'enfant';
 
   @override
-  String get pleaseEnterName => 'Veuillez entrer un nom';
+  String get pleaseEnterName => 'Veuillez entrer un prénom';
 
   @override
-  String get nameMinLength => 'Le nom doit comporter au moins 2 caractères';
+  String get nameMinLength => 'Le prénom doit comporter au moins 2 caractères';
 
   @override
   String get continueButton => 'Continuer';
 
   @override
-  String get changeNameLater =>
-      'Vous pourrez changer le nom plus tard dans les Paramètres.';
+  String get changeNameLater => 'Vous pourrez changer le prénom plus tard dans les Paramètres.';
 
   @override
   String get copiedToClipboard => 'Copié dans le presse-papiers';
@@ -103,17 +100,22 @@ class AppLocalizationsFr extends AppLocalizations {
   String get layout => 'Mise en page';
 
   @override
-  String get useGridOnStoriesPage =>
-      'Utiliser la grille sur la page des histoires';
-
-  @override
-  String get enterName => 'Entrez le nom';
+  String get enterName => 'Entrez le prénom';
 
   @override
   String nameUpdatedSuccessfully(String name) {
-    return 'Nom mis à jour vers \"$name\" avec succès !';
+    return 'Prénom mis à jour vers \"$name\" avec succès !';
   }
 
   @override
   String get save => 'Enregistrer';
+
+  @override
+  String get kidsGender => 'Genre de l\'enfant';
+
+  @override
+  String get boy => 'Garçon';
+
+  @override
+  String get girl => 'Fille';
 }
