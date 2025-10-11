@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final color = Theme.of(context).colorScheme;
     final loc = AppLocalizations.of(context)!;
 
     return Scaffold(
@@ -406,8 +405,6 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
-
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24),
