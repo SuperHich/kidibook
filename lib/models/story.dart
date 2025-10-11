@@ -4,7 +4,8 @@ import 'package:kidibook/controllers/app_state.dart';
 class Story {
   final String id;
   final String title;
-  final String image; // Full URL to the image
+  final String image; // Full URL to the image for boy
+  final String imageGirl; // Full URL to the image for girl
   final String bodyBoy; // Use {{name}} placeholder for kid name
   final String bodyGirl; // Use {{name}} placeholder for kid name
 
@@ -12,6 +13,7 @@ class Story {
     required this.id,
     required this.title,
     required this.image,
+    required this.imageGirl,
     required this.bodyBoy,
     required this.bodyGirl
   });
@@ -23,6 +25,7 @@ class Story {
       id: json['id'],
       title: json['title'],
       image: imageBaseUrl + json['image'],
+      imageGirl: imageBaseUrl + json['image_girl'],
       bodyBoy: json['body_boy'],
       bodyGirl: json['body_girl'],
     );
@@ -49,6 +52,7 @@ class StoriesRepository {
           id: 'not_found',
           title: 'Missing Story',
           image: 'assets/svgs/placeholder.svg',
+          imageGirl: 'assets/svgs/placeholder.svg',
           bodyBoy:
               'Oops! The story could not be found. {{name}} can pick another adventure!',
           bodyGirl:

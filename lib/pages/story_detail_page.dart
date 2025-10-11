@@ -15,8 +15,8 @@ class StoryDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isFav = app.isFavorite(story.id);
-    final color = Theme.of(context).colorScheme;
     final loc = AppLocalizations.of(context)!;
+    final image = app.kidGender == KidGender.boy ? story.image : story.imageGirl;
 
     return Scaffold(
       appBar: AppBar(
@@ -49,7 +49,7 @@ class StoryDetailPage extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: 16 / 9,
                 child: CachedNetworkImage(
-                  imageUrl: story.image,
+                  imageUrl: image,
                   fit: BoxFit.cover,
                   placeholder: (context, url) =>
                       const Center(child: CircularProgressIndicator()),

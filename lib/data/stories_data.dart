@@ -16,7 +16,7 @@ Future<List<Story>> loadStories() async {
 
   if (isConnected) {
     final response = await http.get(
-      Uri.parse('https://api.jsonbin.io/v3/b/68e81c75ae596e708f0c5f41'),
+      Uri.parse('https://api.jsonbin.io/v3/b/68ea38ea43b1c97be96291f6'),
       headers: {
         'X-Master-Key':
             r'$2a$10$cHUzegI/Vs3lyG.ouom.4uIMYjBiC4AswTN3382LeWEP/1n0nGj7q',
