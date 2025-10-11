@@ -40,8 +40,8 @@ class AppStateController extends ChangeNotifier {
     if (prefs != null) {
       _kidName = prefs.getString('kid_name') ?? '';
       _kidGender = switch (prefs.getString('kid_gender')) {
-        'boy' => KidGender.boy,
-        _ => KidGender.girl,
+        'girl' => KidGender.girl,
+        _ => KidGender.boy
       };
       _themeMode = switch (prefs.getString('theme_mode')) {
         'light' => ThemeMode.light,
