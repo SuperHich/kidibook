@@ -304,6 +304,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Girl'**
   String get girl;
+
+  /// No description provided for @alphaUp.
+  ///
+  /// In en, this message translates to:
+  /// **'A-Z (Title)'**
+  String get alphaUp;
+
+  /// No description provided for @alphaDown.
+  ///
+  /// In en, this message translates to:
+  /// **'Z-A (Title)'**
+  String get alphaDown;
+
+  /// No description provided for @dateNewest.
+  ///
+  /// In en, this message translates to:
+  /// **'Newest first'**
+  String get dateNewest;
+
+  /// No description provided for @dateOldest.
+  ///
+  /// In en, this message translates to:
+  /// **'Oldest first'**
+  String get dateOldest;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

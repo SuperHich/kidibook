@@ -56,5 +56,9 @@
   "save": "Save",
   "kidsGender": "Kid's gender",
   "boy": "Boy",
-  "girl": "Girl"
+  "girl": "Girl",
+  "alphaUp": "A-Z (Title)",
+  "alphaDown": "Z-A (Title)",
+  "dateNewest": "Newest first",
+  "dateOldest": "Oldest first"
 }
