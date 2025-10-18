@@ -15,18 +15,12 @@ Future<List<Story>> loadStories() async {
   final prefs = await SharedPreferences.getInstance();
 
   if (isConnected) {
-    final response = await http.get(
-      Uri.parse('https://api.jsonbin.io/v3/b/68ec088f43b1c97be96494c4'),
-      headers: {
-        'X-Master-Key':
-            r'$2a$10$cHUzegI/Vs3lyG.ouom.4uIMYjBiC4AswTN3382LeWEP/1n0nGj7q',
-      },
-    );
+    final response = await http.get(Uri.parse(
+        'https://cdn.jsdelivr.net/gh/SuperHich/kidibook-api@v1.0.3/stories/v3.json'));
 
     if (response.statusCode == 200) {
       await prefs.setString(_storiesCacheKey, response.body);
-      final Map<String, dynamic> data = json.decode(response.body);
-      final List<dynamic> jsonList = data['record'];
+      final List<dynamic> jsonList = json.decode(response.body);
       return jsonList.map((json) => Story.fromJson(json)).toList();
     } else {
       return _loadFromCache(prefs);
@@ -39,8 +33,7 @@ Future<List<Story>> loadStories() async {
 Future<List<Story>> _loadFromCache(SharedPreferences prefs) async {
   final cachedData = prefs.getString(_storiesCacheKey);
   if (cachedData != null) {
-    final Map<String, dynamic> data = json.decode(cachedData);
-    final List<dynamic> jsonList = data['record'];
+    final List<dynamic> jsonList = json.decode(cachedData);
     return jsonList.map((json) => Story.fromJson(json)).toList();
   } else {
     throw Exception('Failed to load stories from cache');
