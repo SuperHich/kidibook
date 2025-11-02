@@ -16,7 +16,7 @@ Future<List<Story>> loadStories() async {
 
   if (isConnected) {
     final response = await http.get(Uri.parse(
-        'https://cdn.jsdelivr.net/gh/SuperHich/kidibook-api@v1.0.3/stories/v3.json'));
+        'https://cdn.jsdelivr.net/gh/SuperHich/kidibook-api@v1.0.3-1/stories/v3.json'));
 
     if (response.statusCode == 200) {
       await prefs.setString(_storiesCacheKey, response.body);
