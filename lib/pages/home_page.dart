@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final color = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
@@ -53,14 +54,81 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         actions: [
-          IconButton(
+          PopupMenuButton<SortOrder>(
             tooltip: loc.sortStories,
-            onPressed: () {
-              final current = widget.app.sortOrder;
-              widget.app.setSortOrder(current == SortOrder.alphaUp ? SortOrder.alphaDown : SortOrder.alphaUp);
+            icon: Icon(switch (widget.app.sortOrder) {
+              SortOrder.alphaUp => Icons.sort_by_alpha,
+              SortOrder.alphaDown => Icons.sort_by_alpha,
+              SortOrder.dateNewest => Icons.schedule,
+              SortOrder.dateOldest => Icons.schedule
+            }),
+            color: color.surface,
+            iconColor: Colors.blue,
+            onSelected: (SortOrder order) {
+              widget.app.setSortOrder(order);
             },
-            icon: Icon(widget.app.sortOrder == SortOrder.alphaUp ? Icons.arrow_downward : Icons.arrow_upward),
-            color: Colors.blue,
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem<SortOrder>(
+                value: SortOrder.alphaUp,
+                child: Row(
+                  children: [
+                    Icon(Icons.sort_by_alpha,
+                        color: widget.app.sortOrder == SortOrder.alphaUp ? Colors.blue : null),
+                    const SizedBox(width: 12),
+                    Text(loc.alphaUp,
+                        style: TextStyle(
+                          fontWeight: widget.app.sortOrder == SortOrder.alphaUp ? FontWeight.bold : null,
+                          color: widget.app.sortOrder == SortOrder.alphaUp ? Colors.blue : null,
+                        )),
+                  ],
+                ),
+              ),
+              PopupMenuItem<SortOrder>(
+                value: SortOrder.alphaDown,
+                child: Row(
+                  children: [
+                    Icon(Icons.sort_by_alpha,
+                        color: widget.app.sortOrder == SortOrder.alphaDown ? Colors.blue : null),
+                    const SizedBox(width: 12),
+                    Text(loc.alphaDown,
+                        style: TextStyle(
+                          fontWeight: widget.app.sortOrder == SortOrder.alphaDown ? FontWeight.bold : null,
+                          color: widget.app.sortOrder == SortOrder.alphaDown ? Colors.blue : null,
+                        )),
+                  ],
+                ),
+              ),
+              PopupMenuItem<SortOrder>(
+                value: SortOrder.dateNewest,
+                child: Row(
+                  children: [
+                    Icon(Icons.schedule,
+                        color: widget.app.sortOrder == SortOrder.dateNewest ? Colors.blue : null),
+                    const SizedBox(width: 12),
+                    Text(loc.dateNewest,
+                        style: TextStyle(
+                          fontWeight: widget.app.sortOrder == SortOrder.dateNewest ? FontWeight.bold : null,
+                          color: widget.app.sortOrder == SortOrder.dateNewest ? Colors.blue : null,
+                        )),
+                  ],
+                ),
+              ),
+              PopupMenuItem<SortOrder>(
+                value: SortOrder.dateOldest,
+                child: Row(
+                  children: [
+                    Icon(Icons.schedule_outlined,
+                        color: widget.app.sortOrder == SortOrder.dateOldest ? Colors.blue : null),
+                    const SizedBox(width: 12),
+                    Text(loc.dateOldest,
+                        style: TextStyle(
+                          fontWeight: widget.app.sortOrder == SortOrder.dateOldest ? FontWeight.bold : null,
+                          color: widget.app.sortOrder == SortOrder.dateOldest ? Colors.blue : null,
+                        )),
+                  ],
+                ),
+              ),
+            ],
           ),
           IconButton(
             tooltip: widget.app.useGrid ? loc.useList : loc.useGrid,
@@ -104,10 +172,16 @@ class _HomePageState extends State<HomePage> {
 
           final all = snapshot.data!;
           all.sort((a, b) {
-            if (widget.app.sortOrder == SortOrder.alphaUp) {
-              return a.title.compareTo(b.title);
+            switch (widget.app.sortOrder) {
+              case SortOrder.alphaUp:
+                return a.title.compareTo(b.title);
+              case SortOrder.alphaDown:
+                return b.title.compareTo(a.title);
+              case SortOrder.dateNewest:
+                return a.creationDate.compareTo(b.creationDate);
+              case SortOrder.dateOldest:
+                return b.creationDate.compareTo(a.creationDate);
             }
-            return b.title.compareTo(a.title);
           });
 
           final favIds = widget.app.favorites;
@@ -157,7 +231,7 @@ class _StoriesGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final isLandscape = screenSize.width > screenSize.height;
-    
+
     if (isLandscape) {
       // In landscape: use dynamic height with horizontal cards
       return GridView.builder(

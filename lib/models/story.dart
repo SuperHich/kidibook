@@ -8,6 +8,7 @@ class Story {
   final String imageGirl; // Full URL to the image for girl
   final String bodyBoy; // Use {{name}} placeholder for kid name
   final String bodyGirl; // Use {{name}} placeholder for kid name
+  final DateTime creationDate;
 
   const Story({
     required this.id,
@@ -15,7 +16,8 @@ class Story {
     required this.image,
     required this.imageGirl,
     required this.bodyBoy,
-    required this.bodyGirl
+    required this.bodyGirl,
+    required this.creationDate,
   });
 
   factory Story.fromJson(Map<String, dynamic> json) {
@@ -28,6 +30,9 @@ class Story {
       imageGirl: imageBaseUrl + json['image_girl'],
       bodyBoy: json['body_boy'],
       bodyGirl: json['body_girl'],
+      creationDate: json['creation_date'] != null 
+          ? DateTime.parse(json['creation_date'])
+          : DateTime.now(), // Fallback to current date if not provided
     );
   }
 
@@ -48,7 +53,7 @@ class StoriesRepository {
 
   Story? byId(String id) => stories.firstWhere(
         (s) => s.id == id,
-        orElse: () => const Story(
+        orElse: () => Story(
           id: 'not_found',
           title: 'Missing Story',
           image: 'assets/svgs/placeholder.svg',
@@ -57,6 +62,7 @@ class StoriesRepository {
               'Oops! The story could not be found. {{name}} can pick another adventure!',
           bodyGirl:
               'Oops! The story could not be found. {{name}} can pick another adventure!',
+          creationDate: DateTime.now(),
         ),
       );
 }

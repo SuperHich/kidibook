@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum SortOrder { alphaUp, alphaDown }
+enum SortOrder { alphaUp, alphaDown, dateNewest, dateOldest }
 enum KidGender { boy, girl }
 
 class AppStateController extends ChangeNotifier {
@@ -55,6 +55,8 @@ class AppStateController extends ChangeNotifier {
       _useGrid = prefs.getBool('use_grid') ?? true;
       _sortOrder = switch (prefs.getString('sort_order')) {
         'alphaDown' => SortOrder.alphaDown,
+        'dateNewest' => SortOrder.dateNewest,
+        'dateOldest' => SortOrder.dateOldest,
         _ => SortOrder.alphaUp,
       };
     }

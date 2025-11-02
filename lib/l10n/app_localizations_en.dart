@@ -118,4 +118,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get girl => 'Girl';
+
+  @override
+  String get alphaUp => 'A-Z (Title)';
+
+  @override
+  String get alphaDown => 'Z-A (Title)';
+
+  @override
+  String get dateNewest => 'Newest first';
+
+  @override
+  String get dateOldest => 'Oldest first';
 }

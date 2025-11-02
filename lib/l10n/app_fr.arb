@@ -34,5 +34,9 @@
   "save": "Enregistrer",
   "kidsGender": "Genre de l'enfant",
   "boy": "Garçon",
-  "girl": "Fille"
+  "girl": "Fille",
+  "alphaUp": "A-Z (Titre)",
+  "alphaDown": "Z-A (Titre)",
+  "dateNewest": "Plus récent en premier",
+  "dateOldest": "Plus ancien en premier"
 }
